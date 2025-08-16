@@ -1,20 +1,57 @@
 import axios from "axios";
 const SDK_api_ver = "v1";
+const baseUrl = "https://api.pexcode.com/qs/";
+
 axios.defaults.headers.post["Content-Type"] = "application/json;charset=UTF-8";
 axios.defaults.headers.post["Accept"] = "*/*";
 axios.defaults.headers.post["Connection"] = "keep-alive";
 axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
-const baseUrl = "https://api.pexcode.com/qs/";
 axios.defaults.baseURL = baseUrl;
-const API_Me = "api/app/" + SDK_api_ver + "/me";
-const getOneApi = "api/app/" + SDK_api_ver + "/packages/tracking/";
-const addOneApi = "api/app/" + SDK_api_ver + "/packages";
-const getList = "api/app/" + SDK_api_ver + "/packages/";
+
+const API_Me = `api/app/${SDK_api_ver}/me`;
+const getOneApi = `api/app/${SDK_api_ver}/packages/tracking/`;
+const addOneApi = `api/app/${SDK_api_ver}/packages`;
+const getList = `api/app/${SDK_api_ver}/packages/`;
 const companies = `api/app/${SDK_api_ver}/place/`;
 const reportOne = `api/app/${SDK_api_ver}/packages/report`;
 const costApi = `api/app/${SDK_api_ver}/shipping/cost`;
 const SendDataToCenterAPI = `api/app/${SDK_api_ver}/packages`;
 const blackListAPi = `api/app/${SDK_api_ver}/blacklist`;
+
+export interface Package {
+  cost_package: number;
+  price_package: number;
+  dest_number: string;
+  dest_city: number;
+  id_cost: string;
+  dest_address: string;
+  sender_name: string;
+  dest_lat: string;
+  dest_lng: string;
+  src_id: string;
+  uid: string;
+  cost_box: boolean;
+  sender_address: string;
+  sender_email?: string;
+  dest_email?: string;
+  dest_name: string;
+  verification: boolean;
+  note: string;
+  isTesting: boolean;
+}
+
+export interface UpdatePackage extends Package {
+  id: string;
+}
+
+export interface CalculateCost {
+  dest_address: string;
+  dest_city: number;
+  dest_lat?: string;
+  dest_lng?: string;
+  id_cost: string;
+  src_id: string;
+}
 
 function toQueryStrings(params: { [x: string]: any }) {
   return (
@@ -138,27 +175,7 @@ class QDSystem {
     }
   }
 
-  async POST_One(params: {
-    cost_package: number;
-    price_package: number;
-    dest_number: string;
-    dest_city: number;
-    id_cost: string;
-    dest_address: string;
-    sender_name: string;
-    dest_lat: string;
-    dest_lng: string;
-    src_id: string;
-    uid: string;
-    cost_box: boolean;
-    sender_address: string;
-    sender_email?: string;
-    dest_email?: string;
-    dest_name: string;
-    verification: boolean;
-    note: string;
-    isTesting: boolean;
-  }) {
+  async POST_One(params: Package) {
     try {
       const payload = {
         cost_package: params.cost_package,
@@ -198,28 +215,7 @@ class QDSystem {
     }
   }
 
-  async Update_One(params: {
-    id: string;
-    cost_package: number;
-    price_package: number;
-    dest_number: string;
-    dest_city: number;
-    id_cost: string;
-    dest_address: string;
-    sender_name: string;
-    dest_lat: string;
-    dest_lng: string;
-    src_id: string;
-    uid: string;
-    cost_box: boolean;
-    sender_address: string;
-    sender_email?: string;
-    dest_email?: string;
-    dest_name: string;
-    verification: boolean;
-    note: string;
-    isTesting: boolean;
-  }) {
+  async Update_One(params: UpdatePackage) {
     try {
       let payload = {
         cost_package: params.cost_package,
@@ -260,14 +256,7 @@ class QDSystem {
     }
   }
 
-  async calculateCost(params: {
-    dest_address: string;
-    dest_city: number;
-    dest_lat?: string;
-    dest_lng?: string;
-    id_cost: string;
-    src_id: string;
-  }) {
+  async calculateCost(params: CalculateCost) {
     try {
       const payload = {
         dest_address: params.dest_address,
