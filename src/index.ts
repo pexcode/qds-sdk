@@ -144,7 +144,7 @@ class QDSystem {
     }
   }
 
-  async Cancel_One(query: { id: string; uid: string }) {
+  async CancelOne(query: { id: string; uid: string }) {
     const param = toQueryStrings(query);
     try {
       const res = await axios.delete(addOneApi + `${param}&key=${this.key}`);

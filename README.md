@@ -34,7 +34,7 @@ This is a library published under an pexcode to help users and developers to use
 import QDSystem from "@pexcode/qds-sdk"
 const qds = new QDSystem("your key token")
 
-qds.me().then(async result => {  console.log(result)  }) .catch(err => {console.log(err) })
+qds.Me().then(async result => {  console.log(result)  }) .catch(err => {console.log(err) })
 
 ```
 
@@ -71,7 +71,7 @@ const qds = new QDSystem("your key token")
 ### The parameter is the city ID, which represents the source city for sending the package
 
 const param=1 int
-const result = await qds.GET_companies(param)
+const result = await qds.CompnayList(param)
 console.log(result)
 
 ```
@@ -92,7 +92,7 @@ const qds = new QDSystem("your-key-token");
 
 let searchOptions = { uid: 1 }; // For more details, visit the [developer's blog](https://quickdeliverysystem.com/blog/how-use-api-quick-delivery-system-v-1-0/)
 
-const result = await qds.GET_List(searchOptions);
+const result = await qds.GetList(searchOptions);
 console.log(result);
 ```
 
@@ -130,7 +130,7 @@ const qds = new QDSystem("your-key-token");
 };
 
 ###  Using function
-   qds.POST_One(data).then(async result => {
+   qds.CreateOne(data).then(async result => {
        console.log(result);
     })
       .catch(err => {
@@ -163,7 +163,7 @@ const qds = new QDSystem("your-key-token");
 };
 
 // Using the function to calculate shipping cost
-qds.calculateCost(data).then(async (result) => {
+qds.CalculateCost(data).then(async (result) => {
     console.log(result);  // Logs the result of the cost calculation
 }).catch((err) => {
     console.log(err);  // Logs any error that occurs
@@ -212,7 +212,7 @@ const qds = new QDSystem("your-key-token");
       id: id // id of the package from the function  (POST_One)
 };
 
- qds.Cancel_One(searchOptions).then(result => {
+ qds.CancelOne(searchOptions).then(result => {
     console.log(result);
     }).catch(err => {
        console.log(err);
