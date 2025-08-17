@@ -68,7 +68,7 @@ class QDSystem {
     this.key = tokenKey;
   }
 
-  async GET_List(query: { id?: string; uid?: string; page?: number }) {
+  async GetList(query: { id?: string; uid?: string; page?: number }) {
     const param = toQueryStrings(query);
     try {
       const res = await axios.get(getList + `${param}&key=${this.key}`);
@@ -82,7 +82,7 @@ class QDSystem {
     }
   }
 
-  async GET_companies(id_city: number) {
+  async CompnayList(id_city: number) {
     try {
       const res = await axios.get(companies + id_city + `?key=${this.key}`);
       return res.data;
@@ -96,7 +96,7 @@ class QDSystem {
     }
   }
 
-  async me() {
+  async Me() {
     try {
       const res = await axios.get(API_Me + `?key=${this.key}`);
       return res.data;
@@ -110,7 +110,7 @@ class QDSystem {
     }
   }
 
-  async GET_One(query: { id?: string; uid?: string }) {
+  async GetOne(query: { id?: string; uid?: string }) {
     const param = toQueryStrings(query);
     try {
       const res = await axios.get(getOneApi + `${param}&key=${this.key}`);
@@ -158,7 +158,7 @@ class QDSystem {
     }
   }
 
-  async Report_One(query: any) {
+  async ReportOne(query: any) {
     // let param =  toQueryStrings(query)
     const param = `?key=${this.key}`;
 
@@ -175,7 +175,7 @@ class QDSystem {
     }
   }
 
-  async POST_One(params: Package) {
+  async CreateOne(params: Package) {
     try {
       const payload = {
         cost_package: params.cost_package,
@@ -215,7 +215,7 @@ class QDSystem {
     }
   }
 
-  async Update_One(params: UpdatePackage) {
+  async UpdateOne(params: UpdatePackage) {
     try {
       let payload = {
         cost_package: params.cost_package,
@@ -256,7 +256,7 @@ class QDSystem {
     }
   }
 
-  async calculateCost(params: CalculateCost) {
+  async CalculateCost(params: CalculateCost) {
     try {
       const payload = {
         dest_address: params.dest_address,
