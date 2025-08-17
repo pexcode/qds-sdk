@@ -1,14 +1,46 @@
+export interface Package {
+    cost_package: number;
+    price_package: number;
+    dest_number: string;
+    dest_city: number;
+    id_cost: string;
+    dest_address: string;
+    sender_name: string;
+    dest_lat: string;
+    dest_lng: string;
+    src_id: string;
+    uid: string;
+    cost_box: boolean;
+    sender_address: string;
+    sender_email?: string;
+    dest_email?: string;
+    dest_name: string;
+    verification: boolean;
+    note: string;
+    isTesting: boolean;
+}
+export interface UpdatePackage extends Package {
+    id: string;
+}
+export interface CalculateCost {
+    dest_address: string;
+    dest_city: number;
+    dest_lat?: string;
+    dest_lng?: string;
+    id_cost: string;
+    src_id: string;
+}
 declare class QDSystem {
     key: string;
     constructor(tokenKey: string);
-    GET_List(query: {
+    GetList(query: {
         id?: string;
         uid?: string;
         page?: number;
     }): Promise<any>;
-    GET_companies(id_city: number): Promise<any>;
-    me(): Promise<any>;
-    GET_One(query: {
+    CompnayList(id_city: number): Promise<any>;
+    Me(): Promise<any>;
+    GetOne(query: {
         id?: string;
         uid?: string;
     }): Promise<any>;
@@ -21,58 +53,10 @@ declare class QDSystem {
         id: string;
         uid: string;
     }): Promise<any>;
-    Report_One(query: any): Promise<any>;
-    POST_One(params: {
-        cost_package: number;
-        price_package: number;
-        dest_number: string;
-        dest_city: number;
-        id_cost: string;
-        dest_address: string;
-        sender_name: string;
-        dest_lat: string;
-        dest_lng: string;
-        src_id: string;
-        uid: string;
-        cost_box: boolean;
-        sender_address: string;
-        sender_email?: string;
-        dest_email?: string;
-        dest_name: string;
-        verification: boolean;
-        note: string;
-        isTesting: boolean;
-    }): Promise<any>;
-    Update_One(params: {
-        id: string;
-        cost_package: number;
-        price_package: number;
-        dest_number: string;
-        dest_city: number;
-        id_cost: string;
-        dest_address: string;
-        sender_name: string;
-        dest_lat: string;
-        dest_lng: string;
-        src_id: string;
-        uid: string;
-        cost_box: boolean;
-        sender_address: string;
-        sender_email?: string;
-        dest_email?: string;
-        dest_name: string;
-        verification: boolean;
-        note: string;
-        isTesting: boolean;
-    }): Promise<any>;
-    calculateCost(params: {
-        dest_address: string;
-        dest_city: number;
-        dest_lat?: string;
-        dest_lng?: string;
-        id_cost: string;
-        src_id: string;
-    }): Promise<any>;
+    ReportOne(query: any): Promise<any>;
+    CreateOne(params: Package): Promise<any>;
+    UpdateOne(params: UpdatePackage): Promise<any>;
+    CalculateCost(params: CalculateCost): Promise<any>;
     SendDataToCenter(query: {
         id: string;
         uid: string;

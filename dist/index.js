@@ -14,16 +14,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
 const SDK_api_ver = "v1";
+const baseUrl = "https://api.pexcode.com/qs/";
 axios_1.default.defaults.headers.post["Content-Type"] = "application/json;charset=UTF-8";
 axios_1.default.defaults.headers.post["Accept"] = "*/*";
 axios_1.default.defaults.headers.post["Connection"] = "keep-alive";
 axios_1.default.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
-const baseUrl = "https://api.pexcode.com/qs/";
 axios_1.default.defaults.baseURL = baseUrl;
-const API_Me = "api/app/" + SDK_api_ver + "/me";
-const getOneApi = "api/app/" + SDK_api_ver + "/packages/tracking/";
-const addOneApi = "api/app/" + SDK_api_ver + "/packages";
-const getList = "api/app/" + SDK_api_ver + "/packages/";
+const API_Me = `api/app/${SDK_api_ver}/me`;
+const getOneApi = `api/app/${SDK_api_ver}/packages/tracking/`;
+const addOneApi = `api/app/${SDK_api_ver}/packages`;
+const getList = `api/app/${SDK_api_ver}/packages/`;
 const companies = `api/app/${SDK_api_ver}/place/`;
 const reportOne = `api/app/${SDK_api_ver}/packages/report`;
 const costApi = `api/app/${SDK_api_ver}/shipping/cost`;
@@ -39,7 +39,7 @@ class QDSystem {
     constructor(tokenKey) {
         this.key = tokenKey;
     }
-    GET_List(query) {
+    GetList(query) {
         return __awaiter(this, void 0, void 0, function* () {
             const param = toQueryStrings(query);
             try {
@@ -55,7 +55,7 @@ class QDSystem {
             }
         });
     }
-    GET_companies(id_city) {
+    CompnayList(id_city) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const res = yield axios_1.default.get(companies + id_city + `?key=${this.key}`);
@@ -71,7 +71,7 @@ class QDSystem {
             }
         });
     }
-    me() {
+    Me() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const res = yield axios_1.default.get(API_Me + `?key=${this.key}`);
@@ -87,7 +87,7 @@ class QDSystem {
             }
         });
     }
-    GET_One(query) {
+    GetOne(query) {
         return __awaiter(this, void 0, void 0, function* () {
             const param = toQueryStrings(query);
             try {
@@ -137,7 +137,7 @@ class QDSystem {
             }
         });
     }
-    Report_One(query) {
+    ReportOne(query) {
         return __awaiter(this, void 0, void 0, function* () {
             // let param =  toQueryStrings(query)
             const param = `?key=${this.key}`;
@@ -155,7 +155,7 @@ class QDSystem {
             }
         });
     }
-    POST_One(params) {
+    CreateOne(params) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const payload = {
@@ -197,7 +197,7 @@ class QDSystem {
             }
         });
     }
-    Update_One(params) {
+    UpdateOne(params) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let payload = {
@@ -240,7 +240,7 @@ class QDSystem {
             }
         });
     }
-    calculateCost(params) {
+    CalculateCost(params) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const payload = {
