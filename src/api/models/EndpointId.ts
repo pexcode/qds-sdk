@@ -1,0 +1,9 @@
+/* generated using openapi-typescript-codegen -- do not edit */
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+/**
+ * Stringified UUIDv4.
+ * See [RFC 4112](https://tools.ietf.org/html/rfc4122)
+ */
+export type EndpointId = string;

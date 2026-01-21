@@ -1,0 +1,77 @@
+/* generated using openapi-typescript-codegen -- do not edit */
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+import type { AppId } from './AppId';
+import type { BillingType } from './BillingType';
+import type { BranchId } from './BranchId';
+import type { CostId } from './CostId';
+import type { EndpointId } from './EndpointId';
+import type { movementsAttributes } from './movementsAttributes';
+import type { PacketId } from './PacketId';
+import type { PacketType } from './PacketType';
+import type { PlatformEnum } from './PlatformEnum';
+import type { ProofOfDeliveryType } from './ProofOfDeliveryType';
+import type { ShippingOption } from './ShippingOption';
+import type { TenantId } from './TenantId';
+import type { UserId } from './UserId';
+export type packagesAttributes = {
+    url?: string;
+    id: PacketId;
+    adminId?: UserId;
+    deliveryId?: UserId;
+    tenantId?: TenantId;
+    futureTenantId?: TenantId;
+    appId?: AppId;
+    recipientCityId?: number;
+    code?: number;
+    branchId?: BranchId;
+    recipientAddress: string;
+    recipientLng?: number;
+    recipientLat?: number;
+    senderName: string;
+    senderAddress: string;
+    senderEmail?: string;
+    senderPhone: string;
+    recipientEmail?: string;
+    type: PacketType;
+    recipientName: string;
+    recipientPhone: string;
+    note: string;
+    shippingCost: number;
+    packetCost?: number;
+    costId?: CostId;
+    paymentMethod?: string;
+    paymentId?: string;
+    paymentDate?: string;
+    currency: string;
+    showCostBox: boolean;
+    km?: number;
+    travelTimeInSeconds?: number;
+    travelMode?: string;
+    status: number;
+    createdAt?: string;
+    updatedAt?: string;
+    uuid: string;
+    roadGroupId?: string;
+    wa: boolean;
+    kg: number;
+    roadAt?: string;
+    isPaid: boolean;
+    isPaidOnline: boolean;
+    endpoint?: EndpointId;
+    pickup: boolean;
+    includeProducts: boolean;
+    platform: PlatformEnum;
+    isTesting: boolean;
+    scanned?: string;
+    stage: number;
+    childrenItem?: number | null;
+    shippingOption: ShippingOption;
+    billingType: BillingType | null;
+    proofOfDeliveryType?: ProofOfDeliveryType;
+    proposedDeliveryDate?: string | null;
+    tripId?: string | null;
+    movementPackageGroup?: Array<movementsAttributes>;
+};
+
