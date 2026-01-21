@@ -3,29 +3,26 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { blacklistAttributes } from '../models/blacklistAttributes';
-import type { CalculateCostAttributes } from '../models/CalculateCostAttributes';
 import type { CheckBlackListAttribute } from '../models/CheckBlackListAttribute';
-import type { citiesAttributes } from '../models/citiesAttributes';
 import type { HttpSuccess } from '../models/HttpSuccess';
 import type { packagesAttributes } from '../models/packagesAttributes';
 import type { PacketId } from '../models/PacketId';
 import type { SdkPackagesCreationAttributes } from '../models/SdkPackagesCreationAttributes';
-import type { ShippingServiceData } from '../models/ShippingServiceData';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class ExternalSdkService {
+export class SdkPackagesControllerService {
     /**
      * @param id
      * @returns any Ok
      * @throws ApiError
      */
-    public static getOne(
+    public static getPackageDetails(
         id: PacketId,
     ): CancelablePromise<packagesAttributes> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/app/v2/packages/{id}',
+            url: '/api/app/v2/packages/package-details/{id}',
             path: {
                 'id': id,
             },
@@ -130,47 +127,6 @@ export class ExternalSdkService {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/app/v2/packages/check-black-list',
-            body: requestBody,
-            mediaType: 'application/json',
-        });
-    }
-    /**
-     * @returns any Ok
-     * @throws ApiError
-     */
-    public static getMe(): CancelablePromise<Array<citiesAttributes>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/app/v2/me',
-        });
-    }
-    /**
-     * @param city
-     * @returns any Ok
-     * @throws ApiError
-     */
-    public static getCitiesCompanies(
-        city: number,
-    ): CancelablePromise<Array<citiesAttributes>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/app/v2/place/{city}',
-            query: {
-                'city': city,
-            },
-        });
-    }
-    /**
-     * @param requestBody
-     * @returns any Ok
-     * @throws ApiError
-     */
-    public static calculateCost(
-        requestBody: CalculateCostAttributes,
-    ): CancelablePromise<ShippingServiceData> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/app/v2/shipping/cost',
             body: requestBody,
             mediaType: 'application/json',
         });

@@ -3,29 +3,28 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { AppId } from './AppId';
+import type { AppLevel } from './AppLevel';
 import type { TenantId } from './TenantId';
 export type appAttributes = {
     id: AppId;
     tenantId: TenantId;
     name: string;
-    address: string;
+    address?: string;
     countryId: number;
     email?: string;
-    disabled: boolean;
-    req: number;
-    last_req_at: string;
-    service?: number;
+    isActive: boolean;
+    currentRequestCount: number;
+    lastRequestAt: string;
     avatar?: string;
     host?: string;
-    cardId?: string;
     token?: string;
     hook_url?: string;
     hash?: string;
-    level_app?: string;
-    totalReq: number;
+    appLevel: AppLevel;
+    maxRequestCount: number;
     blockedAt?: string;
     createdAt?: string;
     updatedAt?: string;
-    access: number;
+    expireDate: string;
 };
 

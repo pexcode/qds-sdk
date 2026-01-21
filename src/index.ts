@@ -1,127 +1,111 @@
 import { ApiCall } from "./api-handler";
 import { OpenAPI } from "./api/core/OpenAPI";
+import { appAttributes } from "./api/models/appAttributes";
+import { branchesAttributes } from "./api/models/branchesAttributes";
 import { CalculateCostAttributes } from "./api/models/CalculateCostAttributes";
 import { CheckBlackListAttribute } from "./api/models/CheckBlackListAttribute";
-import { citiesAttributes } from "./api/models/citiesAttributes";
 import { HttpSuccess } from "./api/models/HttpSuccess";
 import { packagesAttributes } from "./api/models/packagesAttributes";
 import { SdkPackagesCreationAttributes } from "./api/models/SdkPackagesCreationAttributes";
 import { ShippingServiceData } from "./api/models/ShippingServiceData";
-import { ExternalSdkService } from "./api/services/ExternalSdkService";
-const SDK_api_ver = "v1";
-const baseUrl = "https://api.pexcode.com/qs/";
+import { SdkExternalControllerService } from "./api/services/SdkExternalControllerService";
+import { SdkPackagesControllerService } from "./api/services/SdkPackagesControllerService";
+const SDK_api_ver = "v3";
+const baseUrl = "https://api.pexcode.com/qs";
 
-OpenAPI.BASE = baseUrl
-
-export type BranchId = string;
-
-export interface CalculateCost {
-  dest_address: string;
-  dest_city: number;
-  dest_lat?: string;
-  dest_lng?: string;
-  costId: string;
-  branchId: BranchId;
-}
-
-class QDSystem {
-  key: string;
+export class QDSystem {
   constructor(tokenKey: string) {
-    this.key = tokenKey;
-    OpenAPI.HEADERS = { 'key': tokenKey }
+    OpenAPI.TOKEN = tokenKey
+    OpenAPI.BASE = baseUrl
     OpenAPI.HEADERS = { 'x-version': SDK_api_ver }
   }
 
-  async GetList(page: number = 1, pageSize: number = 10,): Promise<packagesAttributes[] | unknown> {
-    try {
-      const res = await ApiCall(() => ExternalSdkService.getList(page, pageSize))
-      return res;
-    } catch (e: any) {
-      throw e;
+  async GetList(page: number = 1, pageSize: number = 10,): Promise<packagesAttributes[]> {
+    const { result, error } = await ApiCall(() => SdkPackagesControllerService.getList(page, pageSize))
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async CompanyList(cityId: number): Promise<citiesAttributes[] | unknown> {
-    try {
-      const res = await ApiCall(() => ExternalSdkService.getCitiesCompanies(cityId))
-      return res;
-    } catch (e: any) {
-      throw e;
+  async getCompanyListOfCity(cityId: number): Promise<branchesAttributes[]> {
+    const { result, error } = await ApiCall(() => SdkExternalControllerService.getListOfCity(cityId))
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async Me(): Promise<citiesAttributes[] | unknown> {
-    try {
-      const res = await ApiCall(() => ExternalSdkService.getMe())
-      return res;
-    } catch (e: any) {
-      throw e;
+  async MyInfo(): Promise<appAttributes> {
+    const { result, error } = await ApiCall<appAttributes>(() => SdkExternalControllerService.getMyInfo())
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async GetOne(id: string): Promise<packagesAttributes | unknown> {
-    try {
-      const res = await ApiCall(() => ExternalSdkService.getOne(id))
-      return res;
-    } catch (e: any) {
-      throw e;
+  async getTenantBranches(): Promise<branchesAttributes[]> {
+    const { result, error } = await ApiCall<branchesAttributes[]>(() => SdkExternalControllerService.getTenantBranches())
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async CheckBlackList(query: CheckBlackListAttribute): Promise<CheckBlackListAttribute | unknown> {
-    try {
-      const res = await ApiCall(() => ExternalSdkService.checkBlackList(query))
-      return res;
-    } catch (e: any) {
-      throw e;
+
+  async GetPackageDetails(id: string): Promise<packagesAttributes> {
+    const { result, error } = await ApiCall(() => SdkPackagesControllerService.getPackageDetails(id))
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async CancelOne(id: string): Promise<HttpSuccess | unknown> {
-    try {
-      const res = await ApiCall(() => ExternalSdkService.canceled(id))
-      return res;
-    } catch (e: any) {
-      throw e;
+  async CheckBlackList(query: CheckBlackListAttribute): Promise<CheckBlackListAttribute> {
+    const { result, error } = await ApiCall(() => SdkPackagesControllerService.checkBlackList(query))
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async ReportOne(id: string, body: any): Promise<HttpSuccess | unknown> {
-    try {
-      const res = await ApiCall(() => ExternalSdkService.reportPacket(id, body))
-      return res;
-    } catch (e: any) {
-      throw e;
+  async CancelOne(id: string): Promise<HttpSuccess> {
+    const { result, error } = await ApiCall(() => SdkPackagesControllerService.canceled(id))
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async CreatePackage(payload: SdkPackagesCreationAttributes): Promise<packagesAttributes | unknown> {
-    try {
-      const res = await ApiCall(() => ExternalSdkService.createNewPackage(payload))
-      return res;
-    } catch (e: any) {
-      throw e;
+  async ReportOne(id: string, body: any): Promise<HttpSuccess> {
+    const { result, error } = await ApiCall(() => SdkPackagesControllerService.reportPacket(id, body))
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async CalculateCost(params: CalculateCostAttributes): Promise<ShippingServiceData | unknown> {
-    try {
-      const res = await ApiCall(() => ExternalSdkService.calculateCost(params))
-      return res;
-    } catch (e: any) {
-      console.log(e);
-      throw e;
+  async CreatePackage(payload: SdkPackagesCreationAttributes): Promise<packagesAttributes> {
+    const { result, error } = await ApiCall(() => SdkPackagesControllerService.createNewPackage(payload))
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async SendDataToCenter(id: string): Promise<ShippingServiceData | unknown> {
-    try {
-      const res = await ApiCall(() => ExternalSdkService.sendDataToCEnter(id))
-      return res;
-    } catch (e: any) {
-      throw e;
+  async CalculateCost(params: CalculateCostAttributes): Promise<ShippingServiceData> {
+    const { result, error } = await ApiCall(() => SdkExternalControllerService.calculateCost(params))
+    if (result) {
+      return result;
     }
+    throw error;
+  }
+
+  async SendDataToCenter(id: string): Promise<HttpSuccess> {
+    const { result, error } = await ApiCall(() => SdkPackagesControllerService.sendDataToCEnter(id))
+    if (result) {
+      return result;
+    }
+    throw error;
   }
 }
-
-export default QDSystem;

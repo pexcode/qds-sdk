@@ -12,12 +12,12 @@ function traceError(error: unknown): HttpError | undefined {
 }
 
 async function exceptionHandler(error: unknown) {
-  console.error(error)
   const exceptionError = traceError(error)
   if (exceptionError) {
     console.log(exceptionError.message)
     console.log(exceptionError.messageKey)
     console.log(exceptionError.status)
+    throw new Error(exceptionError.message)
   }
 }
 
@@ -26,11 +26,9 @@ export async function ApiCall<T>(
 ): Promise<{ result?: T; error?: HttpError }> {
   try {
     const result = await service()
-    if (result) {
-      return { result }
-    } else {
-      throw result
-    }
+
+    return { result }
+ 
   } catch (error) {
     await exceptionHandler(error)
     return { error: traceError(error) }

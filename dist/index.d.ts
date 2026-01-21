@@ -2,35 +2,12 @@
  * Stringified UUIDv4.
  * See [RFC 4112](https://tools.ietf.org/html/rfc4122)
  */
-type BranchId$1 = string;
+type AppId = string;
 
-/**
- * Stringified UUIDv4.
- * See [RFC 4112](https://tools.ietf.org/html/rfc4122)
- */
-type CostId = string;
-
-type CalculateCostAttributes = {
-    costId: CostId;
-    branchId: BranchId$1;
-    recipientLng?: number;
-    recipientLat?: number;
-    recipientAddress?: string;
-    recipientCityId: number;
-    isExpress: boolean;
-    isPickup: boolean;
-};
-
-type CheckBlackListAttribute = {
-    phone?: string;
-    fullName?: string;
-    address?: string;
-    email?: string;
-};
-
-declare enum PacketType {
-    PACKET = "Packet",
-    DOCUMENT = "Document"
+declare enum AppLevel {
+    PRIVATE = "private",
+    PUBLIC = "public",
+    NATIONAL = "national"
 }
 
 /**
@@ -39,10 +16,50 @@ declare enum PacketType {
  */
 type TenantId = string;
 
+type appAttributes = {
+    id: AppId;
+    tenantId: TenantId;
+    name: string;
+    address?: string;
+    countryId: number;
+    email?: string;
+    isActive: boolean;
+    currentRequestCount: number;
+    lastRequestAt: string;
+    avatar?: string;
+    host?: string;
+    token?: string;
+    hook_url?: string;
+    hash?: string;
+    appLevel: AppLevel;
+    maxRequestCount: number;
+    blockedAt?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    expireDate: string;
+};
+
+/**
+ * Stringified UUIDv4.
+ * See [RFC 4112](https://tools.ietf.org/html/rfc4122)
+ */
+type BranchId = string;
+
+/**
+ * Stringified UUIDv4.
+ * See [RFC 4112](https://tools.ietf.org/html/rfc4122)
+ */
+type CostId = string;
+
+declare enum PacketType {
+    PACKET = "Packet",
+    DOCUMENT = "Document"
+}
+
 type costModelAttributes = {
     id: CostId;
     tenantId: TenantId;
-    branchId: BranchId$1;
+    branchId: BranchId;
     type: PacketType;
     typeId: number;
     modelV1: boolean;
@@ -70,7 +87,7 @@ type UserId = string;
 
 type branchesAttributes = {
     costModel?: Array<costModelAttributes> | null;
-    id: BranchId$1;
+    id: BranchId;
     userId: UserId;
     tenantId: TenantId;
     cityId: number;
@@ -93,17 +110,22 @@ type branchesAttributes = {
     isActive: boolean;
 };
 
-type citiesAttributes = {
-    id: number;
-    countryId: number;
-    ar_name: string;
-    en_name: string;
-    topic_name?: string;
-    lat: string;
-    lng: string;
-    createdAt?: string;
-    updatedAt?: string;
-    branches?: Array<branchesAttributes> | null;
+type CalculateCostAttributes = {
+    costId: CostId;
+    branchId: BranchId;
+    recipientLng?: number;
+    recipientLat?: number;
+    recipientAddress?: string;
+    recipientCityId: number;
+    isExpress: boolean;
+    isPickup: boolean;
+};
+
+type CheckBlackListAttribute = {
+    phone?: string;
+    fullName?: string;
+    address?: string;
+    email?: string;
 };
 
 type HttpSuccess = {
@@ -111,12 +133,6 @@ type HttpSuccess = {
     message: string;
     messageKey: string;
 };
-
-/**
- * Stringified UUIDv4.
- * See [RFC 4112](https://tools.ietf.org/html/rfc4122)
- */
-type AppId = string;
 
 declare enum BillingType {
     NONE = "none",
@@ -140,7 +156,7 @@ declare enum MovementsStatusAttributes {
 type movementsAttributes = {
     id: string;
     tripId: string;
-    branchId: BranchId$1;
+    branchId: BranchId;
     userId: UserId;
     tenantId: TenantId;
     deliveryId: UserId;
@@ -190,7 +206,7 @@ type packagesAttributes = {
     appId?: AppId;
     recipientCityId?: number;
     code?: number;
-    branchId?: BranchId$1;
+    branchId?: BranchId;
     recipientAddress: string;
     recipientLng?: number;
     recipientLat?: number;
@@ -245,7 +261,7 @@ type SdkPackagesCreationAttributes = {
     shippingOption: ShippingOption;
     billingType: BillingType;
     proofOfDeliveryType: ProofOfDeliveryType;
-    branchId: BranchId$1;
+    branchId: BranchId;
     costId: CostId;
     futureTenantId?: TenantId;
     recipientCityId: number;
@@ -285,28 +301,19 @@ type ShippingServiceData = {
     details: costModelAttributes;
 };
 
-type BranchId = string;
-interface CalculateCost {
-    dest_address: string;
-    dest_city: number;
-    dest_lat?: string;
-    dest_lng?: string;
-    costId: string;
-    branchId: BranchId;
-}
 declare class QDSystem {
-    key: string;
     constructor(tokenKey: string);
-    GetList(page?: number, pageSize?: number): Promise<packagesAttributes[] | unknown>;
-    CompanyList(cityId: number): Promise<citiesAttributes[] | unknown>;
-    Me(): Promise<citiesAttributes[] | unknown>;
-    GetOne(id: string): Promise<packagesAttributes | unknown>;
-    CheckBlackList(query: CheckBlackListAttribute): Promise<CheckBlackListAttribute | unknown>;
-    CancelOne(id: string): Promise<HttpSuccess | unknown>;
-    ReportOne(id: string, body: any): Promise<HttpSuccess | unknown>;
-    CreatePackage(payload: SdkPackagesCreationAttributes): Promise<packagesAttributes | unknown>;
-    CalculateCost(params: CalculateCostAttributes): Promise<ShippingServiceData | unknown>;
-    SendDataToCenter(id: string): Promise<ShippingServiceData | unknown>;
+    GetList(page?: number, pageSize?: number): Promise<packagesAttributes[]>;
+    getCompanyListOfCity(cityId: number): Promise<branchesAttributes[]>;
+    MyInfo(): Promise<appAttributes>;
+    getTenantBranches(): Promise<branchesAttributes[]>;
+    GetPackageDetails(id: string): Promise<packagesAttributes>;
+    CheckBlackList(query: CheckBlackListAttribute): Promise<CheckBlackListAttribute>;
+    CancelOne(id: string): Promise<HttpSuccess>;
+    ReportOne(id: string, body: any): Promise<HttpSuccess>;
+    CreatePackage(payload: SdkPackagesCreationAttributes): Promise<packagesAttributes>;
+    CalculateCost(params: CalculateCostAttributes): Promise<ShippingServiceData>;
+    SendDataToCenter(id: string): Promise<HttpSuccess>;
 }
 
-export { type BranchId, type CalculateCost, QDSystem as default };
+export { QDSystem };

@@ -2,8 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export enum ScheduledTripsType {
-    MONTHLY = 'monthly',
-    DAILY = 'daily',
-    WEEKLY = 'weekly',
+export enum AppLevel {
+    PRIVATE = 'private',
+    PUBLIC = 'public',
+    NATIONAL = 'national',
 }
