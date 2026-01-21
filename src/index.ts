@@ -1,305 +1,111 @@
-import axios from "axios";
-const SDK_api_ver = "v1";
-const baseUrl = "https://api.pexcode.com/qs/";
+import { ApiCall } from "./api-handler";
+import { OpenAPI } from "./api/core/OpenAPI";
+import { appAttributes } from "./api/models/appAttributes";
+import { branchesAttributes } from "./api/models/branchesAttributes";
+import { CalculateCostAttributes } from "./api/models/CalculateCostAttributes";
+import { CheckBlackListAttribute } from "./api/models/CheckBlackListAttribute";
+import { HttpSuccess } from "./api/models/HttpSuccess";
+import { packagesAttributes } from "./api/models/packagesAttributes";
+import { SdkPackagesCreationAttributes } from "./api/models/SdkPackagesCreationAttributes";
+import { ShippingServiceData } from "./api/models/ShippingServiceData";
+import { SdkExternalControllerService } from "./api/services/SdkExternalControllerService";
+import { SdkPackagesControllerService } from "./api/services/SdkPackagesControllerService";
+const SDK_api_ver = "v3";
+const baseUrl = "https://api.pexcode.com/qs";
 
-axios.defaults.headers.post["Content-Type"] = "application/json;charset=UTF-8";
-axios.defaults.headers.post["Accept"] = "*/*";
-axios.defaults.headers.post["Connection"] = "keep-alive";
-axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
-axios.defaults.baseURL = baseUrl;
-
-const API_Me = `api/app/${SDK_api_ver}/me`;
-const getOneApi = `api/app/${SDK_api_ver}/packages/tracking/`;
-const addOneApi = `api/app/${SDK_api_ver}/packages`;
-const getList = `api/app/${SDK_api_ver}/packages/`;
-const companies = `api/app/${SDK_api_ver}/place/`;
-const reportOne = `api/app/${SDK_api_ver}/packages/report`;
-const costApi = `api/app/${SDK_api_ver}/shipping/cost`;
-const SendDataToCenterAPI = `api/app/${SDK_api_ver}/packages`;
-const blackListAPi = `api/app/${SDK_api_ver}/blacklist`;
-
-export interface Package {
-  cost_package: number;
-  price_package: number;
-  dest_number: string;
-  dest_city: number;
-  id_cost: string;
-  dest_address: string;
-  sender_name: string;
-  dest_lat: string;
-  dest_lng: string;
-  src_id: string;
-  uid: string;
-  cost_box: boolean;
-  sender_address: string;
-  sender_email?: string;
-  dest_email?: string;
-  dest_name: string;
-  verification: boolean;
-  note: string;
-  isTesting: boolean;
-}
-
-export interface UpdatePackage extends Package {
-  id: string;
-}
-
-export interface CalculateCost {
-  dest_address: string;
-  dest_city: number;
-  dest_lat?: string;
-  dest_lng?: string;
-  id_cost: string;
-  src_id: string;
-}
-
-function toQueryStrings(params: { [x: string]: any }) {
-  return (
-    "?" +
-    Object.keys(params)
-      .map((key) => `${key}=${params[key]}`)
-      .join("&")
-  );
-}
-
-class QDSystem {
-  key: string;
+export class QDSystem {
   constructor(tokenKey: string) {
-    this.key = tokenKey;
+    OpenAPI.TOKEN = tokenKey
+    OpenAPI.BASE = baseUrl
+    OpenAPI.HEADERS = { 'x-version': SDK_api_ver }
   }
 
-  async GetList(query: { id?: string; uid?: string; page?: number }) {
-    const param = toQueryStrings(query);
-    try {
-      const res = await axios.get(getList + `${param}&key=${this.key}`);
-      return res.data;
-    } catch (e: any) {
-      console.log(e.message);
-      if (e.response && e.response.data) {
-        console.log(e.response.data);
-      }
-      throw e;
+  async GetList(page: number = 1, pageSize: number = 10,): Promise<packagesAttributes[]> {
+    const { result, error } = await ApiCall(() => SdkPackagesControllerService.getList(page, pageSize))
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async CompnayList(id_city: number) {
-    try {
-      const res = await axios.get(companies + id_city + `?key=${this.key}`);
-      return res.data;
-    } catch (e: any) {
-      // Handle error
-      console.log(e.message);
-      if (e.response && e.response.data) {
-        console.log(e.response.data);
-      }
-      throw e;
+  async getCompanyListOfCity(cityId: number): Promise<branchesAttributes[]> {
+    const { result, error } = await ApiCall(() => SdkExternalControllerService.getListOfCity(cityId))
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async Me() {
-    try {
-      const res = await axios.get(API_Me + `?key=${this.key}`);
-      return res.data;
-    } catch (e: any) {
-      // Handle error
-      console.log(e.message);
-      if (e.response && e.response.data) {
-        console.log(e.response.data);
-      }
-      throw e;
+  async MyInfo(): Promise<appAttributes> {
+    const { result, error } = await ApiCall<appAttributes>(() => SdkExternalControllerService.getMyInfo())
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async GetOne(query: { id?: string; uid?: string }) {
-    const param = toQueryStrings(query);
-    try {
-      const res = await axios.get(getOneApi + `${param}&key=${this.key}`);
-      return res.data;
-    } catch (e: any) {
-      // Handle error
-      console.log(e.message);
-      if (e.response && e.response.data) {
-        console.log(e.response.data);
-      }
-      throw e;
+  async getTenantBranches(): Promise<branchesAttributes[]> {
+    const { result, error } = await ApiCall<branchesAttributes[]>(() => SdkExternalControllerService.getTenantBranches())
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async CheckBlackList(query: {
-    full_name?: string;
-    number?: string;
-    email?: string;
-  }) {
-    const param = toQueryStrings(query);
-    try {
-      const res = await axios.get(blackListAPi + `${param}&key=${this.key}`);
-      return res.data;
-    } catch (e: any) {
-      // Handle error
-      console.log(e.message);
-      if (e.response && e.response.data) {
-        console.log(e.response.data);
-      }
-      throw e;
+
+  async GetPackageDetails(id: string): Promise<packagesAttributes> {
+    const { result, error } = await ApiCall(() => SdkPackagesControllerService.getPackageDetails(id))
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async CancelOne(query: { id: string; uid: string }) {
-    const param = toQueryStrings(query);
-    try {
-      const res = await axios.delete(addOneApi + `${param}&key=${this.key}`);
-      return res.data;
-    } catch (e: any) {
-      console.log(e.message);
-      if (e.response && e.response.data) {
-        console.log(e.response.data);
-      }
-      throw e;
+  async CheckBlackList(query: CheckBlackListAttribute): Promise<CheckBlackListAttribute> {
+    const { result, error } = await ApiCall(() => SdkPackagesControllerService.checkBlackList(query))
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async ReportOne(query: any) {
-    // let param =  toQueryStrings(query)
-    const param = `?key=${this.key}`;
-
-    try {
-      const res = await axios.post(reportOne + param, query);
-      return res.data;
-    } catch (e: any) {
-      // Handle error
-      console.log(e.message);
-      if (e.response && e.response.data) {
-        console.log(e.response.data);
-      }
-      throw e;
+  async CancelOne(id: string): Promise<HttpSuccess> {
+    const { result, error } = await ApiCall(() => SdkPackagesControllerService.canceled(id))
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async CreateOne(params: Package) {
-    try {
-      const payload = {
-        cost_package: params.cost_package,
-        price_package: params.price_package,
-        dest_number: params.dest_number,
-        dest_city: params.dest_city,
-        id_cost: params.id_cost,
-        dest_address: params.dest_address,
-        sender_name: params.sender_name,
-        dest_lat: params.dest_lat,
-        dest_lng: params.dest_lng,
-        src_id: params.src_id,
-        uid: params.uid,
-        cost_box: params.cost_box,
-        sender_address: params.sender_address,
-        sender_email: params.sender_email || null,
-        dest_email: params.dest_email || null,
-        dest_name: params.dest_name,
-        verification: params.verification,
-        note: params.note,
-        isTesting: params.isTesting,
-      };
-
-      try {
-        const res = await axios.post(addOneApi + `?key=${this.key}`, payload);
-        return res.data;
-      } catch (e: any) {
-        console.log(e.message);
-        if (e.response && e.response.data) {
-          console.log(e.response.data);
-        }
-        throw e;
-      }
-    } catch (e: any) {
-      console.log(e);
-      throw e;
+  async ReportOne(id: string, body: any): Promise<HttpSuccess> {
+    const { result, error } = await ApiCall(() => SdkPackagesControllerService.reportPacket(id, body))
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async UpdateOne(params: UpdatePackage) {
-    try {
-      let payload = {
-        cost_package: params.cost_package,
-        price_package: params.price_package,
-        dest_number: params.dest_number,
-        dest_city: params.dest_city,
-        id_cost: params.id_cost,
-        id: params.id,
-        dest_address: params.dest_address,
-        sender_name: params.sender_name,
-        dest_lat: params.dest_lat,
-        dest_lng: params.dest_lng,
-        src_id: params.src_id,
-        uid: params.uid,
-        sender_address: params.sender_address,
-        sender_email: params.sender_email || null, //
-        dest_email: params.dest_email || null, //
-        dest_name: params.dest_name,
-        verification: params.verification,
-        note: params.note,
-        isTesting: params.isTesting,
-      };
-
-      try {
-        const res = await axios.patch(addOneApi + `?key=${this.key}`, payload);
-        return res.data;
-      } catch (e: any) {
-        // Handle error
-        console.log(e.message);
-        if (e.response && e.response.data) {
-          console.log(e.response.data);
-        }
-        throw e;
-      }
-    } catch (e: any) {
-      console.log(e);
-      throw e;
+  async CreatePackage(payload: SdkPackagesCreationAttributes): Promise<packagesAttributes> {
+    const { result, error } = await ApiCall(() => SdkPackagesControllerService.createNewPackage(payload))
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async CalculateCost(params: CalculateCost) {
-    try {
-      const payload = {
-        dest_address: params.dest_address,
-        cityId: params.dest_city,
-        // dest_lat:  params.dest_lat,
-        // dest_lng:  params.dest_lng,
-        id_cost: params.id_cost,
-        src_id: params.src_id,
-      };
-
-      try {
-        const res = await axios.post(costApi + `?key=${this.key}`, payload);
-        return res.data;
-      } catch (e: any) {
-        // Handle error
-        console.log(e.message);
-        if (e.response && e.response.data) {
-          console.log(e.response.data);
-        }
-        throw e;
-      }
-    } catch (e: any) {
-      console.log(e);
-      throw e;
+  async CalculateCost(params: CalculateCostAttributes): Promise<ShippingServiceData> {
+    const { result, error } = await ApiCall(() => SdkExternalControllerService.calculateCost(params))
+    if (result) {
+      return result;
     }
+    throw error;
   }
 
-  async SendDataToCenter(query: { id: string; uid: string }) {
-    const param = toQueryStrings(query);
-    try {
-      const res = await axios.get(
-        SendDataToCenterAPI + `${param}&key=${this.key}`
-      );
-      return res.data;
-    } catch (e: any) {
-      // Handle error
-      console.log(e.message);
-      if (e.response && e.response.data) {
-        console.log(e.response.data);
-      }
-      throw e;
+  async SendDataToCenter(id: string): Promise<HttpSuccess> {
+    const { result, error } = await ApiCall(() => SdkPackagesControllerService.sendDataToCEnter(id))
+    if (result) {
+      return result;
     }
+    throw error;
   }
 }
-
-export default QDSystem;

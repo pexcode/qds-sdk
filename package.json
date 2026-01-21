@@ -1,9 +1,14 @@
 {
   "name": "@pexcode/qds-sdk",
-  "version": "2.1.2",
+  "version": "3.1.2",
   "description": "This is a library published under Pexcode to help users and developers to use QuickDeliverySystem API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "module": "./dist/index.mjs",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -11,12 +16,20 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "push": "npm publish --access public",
+    "swagger-dev": "npx openapi-typescript-codegen --input http://localhost:2500/swagger.json --output src/api --client axios",
+    "build-tsup": "tsup src/index.ts --format cjs,esm --dts --clean --minify",
+    "cleanup-api": "node scripts/cleanup-api.ts",
+    "test": "jest"
   },
-  "files": [
-    "dist"
-  ],
   "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.0.5",
+    "jest": "^30.2.0",
+    "openapi-typescript-codegen": "^0.29.0",
+    "ts-jest": "^29.4.6",
+    "tsup": "^8.5.1",
     "typescript": "^5.8.3"
   },
   "dependencies": {
