@@ -1,6 +1,6 @@
 {
   "name": "@pexcode/qds-sdk",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "description": "This is a library published under Pexcode to help users and developers to use QuickDeliverySystem API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
