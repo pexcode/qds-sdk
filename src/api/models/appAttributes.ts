@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { AppId } from './AppId';
 import type { AppLevel } from './AppLevel';
+import type { LimitedAppAttributes } from './LimitedAppAttributes';
 import type { TenantId } from './TenantId';
 export type appAttributes = {
     id: AppId;
@@ -21,10 +22,10 @@ export type appAttributes = {
     hook_url?: string;
     hash?: string;
     appLevel: AppLevel;
-    maxRequestCount: number;
     blockedAt?: string;
     createdAt?: string;
     updatedAt?: string;
     expireDate: string;
+    limitedApp?: LimitedAppAttributes;
 };
 

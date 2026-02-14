@@ -33,7 +33,6 @@ export type SdkPackagesCreationAttributes = {
     shippingCost: number;
     packetCost?: number;
     showCostBox: boolean;
-    express: boolean;
     isPaid: boolean;
     isPaidOnline: boolean;
     endpoint?: EndpointId;

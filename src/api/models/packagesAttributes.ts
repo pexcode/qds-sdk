@@ -26,11 +26,11 @@ export type packagesAttributes = {
     recipientCityId?: number;
     code?: number;
     branchId?: BranchId;
-    recipientAddress: string;
+    recipientAddress?: string;
     recipientLng?: number;
     recipientLat?: number;
     senderName: string;
-    senderAddress: string;
+    senderAddress?: string;
     senderEmail?: string;
     senderPhone: string;
     recipientEmail?: string;

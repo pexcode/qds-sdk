@@ -18,7 +18,6 @@ describe('My app Info', () => {
     // Assert
     expect(result.name).toBe("test")
     expect(result.address).toBe("test")
-    expect(result.maxRequestCount).toBe(444)
   });
 
 
@@ -147,7 +146,6 @@ describe('CreatePackage', () => {
       shippingCost: 10,
       packetCost: 50,
       showCostBox: true,
-      express: false,
       isPaid: false,
       isPaidOnline: false,
       pickup: false,
