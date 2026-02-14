@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.QDSystem = void 0;
 const api_handler_1 = require("./api-handler");
 const OpenAPI_1 = require("./api/core/OpenAPI");
+const RegionsControllerService_1 = require("./api/services/RegionsControllerService");
 const SdkExternalControllerService_1 = require("./api/services/SdkExternalControllerService");
 const SdkPackagesControllerService_1 = require("./api/services/SdkPackagesControllerService");
 const SDK_api_ver = "v3";
@@ -85,6 +86,20 @@ class QDSystem {
     }
     async SendDataToCenter(id) {
         const { result, error } = await (0, api_handler_1.ApiCall)(() => SdkPackagesControllerService_1.SdkPackagesControllerService.sendDataToCEnter(id));
+        if (result) {
+            return result;
+        }
+        throw error;
+    }
+    async GetRegionsList(countryId) {
+        const { result, error } = await (0, api_handler_1.ApiCall)(() => RegionsControllerService_1.RegionsControllerService.getRegions(countryId));
+        if (result) {
+            return result;
+        }
+        throw error;
+    }
+    async GetCitiesListInByRegion(regionId) {
+        const { result, error } = await (0, api_handler_1.ApiCall)(() => RegionsControllerService_1.RegionsControllerService.getCities(regionId));
         if (result) {
             return result;
         }

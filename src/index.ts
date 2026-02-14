@@ -4,10 +4,13 @@ import { appAttributes } from "./api/models/appAttributes";
 import { branchesAttributes } from "./api/models/branchesAttributes";
 import { CalculateCostAttributes } from "./api/models/CalculateCostAttributes";
 import { CheckBlackListAttribute } from "./api/models/CheckBlackListAttribute";
+import { citiesAttributes } from "./api/models/citiesAttributes";
 import { HttpSuccess } from "./api/models/HttpSuccess";
 import { packagesAttributes } from "./api/models/packagesAttributes";
+import { regionsAttributes } from "./api/models/regionsAttributes";
 import { SdkPackagesCreationAttributes } from "./api/models/SdkPackagesCreationAttributes";
 import { ShippingServiceData } from "./api/models/ShippingServiceData";
+import { RegionsControllerService } from "./api/services/RegionsControllerService";
 import { SdkExternalControllerService } from "./api/services/SdkExternalControllerService";
 import { SdkPackagesControllerService } from "./api/services/SdkPackagesControllerService";
 const SDK_api_ver = "v3";
@@ -103,6 +106,22 @@ export class QDSystem {
 
   async SendDataToCenter(id: string): Promise<HttpSuccess> {
     const { result, error } = await ApiCall(() => SdkPackagesControllerService.sendDataToCEnter(id))
+    if (result) {
+      return result;
+    }
+    throw error;
+  }
+
+  async GetRegionsList(countryId:number):Promise<regionsAttributes[]>{
+    const { result, error } = await ApiCall(() => RegionsControllerService.getRegions(countryId))
+    if (result) {
+      return result;
+    }
+    throw error;
+  }
+
+  async GetCitiesListInByRegion(regionId:number):Promise<citiesAttributes[]>{
+    const { result, error } = await ApiCall(() => RegionsControllerService.getCities(regionId))
     if (result) {
       return result;
     }
