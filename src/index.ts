@@ -2,16 +2,18 @@ import { ApiCall } from "./api-handler";
 import { OpenAPI } from "./api/core/OpenAPI";
 import { appAttributes } from "./api/models/appAttributes";
 import { branchesAttributes } from "./api/models/branchesAttributes";
+import { BranchLedgerAttributes } from "./api/models/BranchLedgerAttributes";
 import { CalculateCostAttributes } from "./api/models/CalculateCostAttributes";
 import { CheckBlackListAttribute } from "./api/models/CheckBlackListAttribute";
 import { citiesAttributes } from "./api/models/citiesAttributes";
 import { HttpSuccess } from "./api/models/HttpSuccess";
 import { packagesAttributes } from "./api/models/packagesAttributes";
 import { regionsAttributes } from "./api/models/regionsAttributes";
+import { SdkLedgerOverview } from "./api/models/SdkLedgerOverview";
 import { SdkPackagesCreationAttributes } from "./api/models/SdkPackagesCreationAttributes";
 import { ShippingServiceData } from "./api/models/ShippingServiceData";
 import { RegionsControllerService } from "./api/services/RegionsControllerService";
-import { SdkExternalControllerService } from "./api/services/SdkExternalControllerService";
+import { SdkControllerService } from "./api/services/SdkControllerService";
 import { SdkPackagesControllerService } from "./api/services/SdkPackagesControllerService";
 const SDK_api_ver = "v3";
 const baseUrl = "https://api.pexcode.com/qs";
@@ -32,7 +34,7 @@ export class QDSystem {
   }
 
   async getCompanyListOfCity(cityId: number): Promise<branchesAttributes[]> {
-    const { result, error } = await ApiCall(() => SdkExternalControllerService.getListOfCity(cityId))
+    const { result, error } = await ApiCall(() => SdkControllerService.getListOfCity(cityId))
     if (result) {
       return result;
     }
@@ -40,7 +42,7 @@ export class QDSystem {
   }
 
   async MyInfo(): Promise<appAttributes> {
-    const { result, error } = await ApiCall<appAttributes>(() => SdkExternalControllerService.getMyInfo())
+    const { result, error } = await ApiCall<appAttributes>(() => SdkControllerService.getMyInfo())
     if (result) {
       return result;
     }
@@ -48,7 +50,7 @@ export class QDSystem {
   }
 
   async getTenantBranches(): Promise<branchesAttributes[]> {
-    const { result, error } = await ApiCall<branchesAttributes[]>(() => SdkExternalControllerService.getTenantBranches())
+    const { result, error } = await ApiCall<branchesAttributes[]>(() => SdkControllerService.getTenantBranches())
     if (result) {
       return result;
     }
@@ -97,7 +99,7 @@ export class QDSystem {
   }
 
   async CalculateCost(params: CalculateCostAttributes): Promise<ShippingServiceData> {
-    const { result, error } = await ApiCall(() => SdkExternalControllerService.calculateCost(params))
+    const { result, error } = await ApiCall(() => SdkControllerService.calculateCost(params))
     if (result) {
       return result;
     }
@@ -122,6 +124,22 @@ export class QDSystem {
 
   async GetCitiesListInByRegion(regionId:number):Promise<citiesAttributes[]>{
     const { result, error } = await ApiCall(() => RegionsControllerService.getCities(regionId))
+    if (result) {
+      return result;
+    }
+    throw error;
+  }
+  
+  async GetMyLedger(year?:number,month?:number):Promise<BranchLedgerAttributes[]>{
+    const { result, error } = await ApiCall(() => SdkControllerService.getLedgerList(year,month))
+    if (result) {
+      return result;
+    }
+    throw error;
+  }
+
+  async GetMyLedgerOverview():Promise<SdkLedgerOverview>{
+    const { result, error } = await ApiCall(() => SdkControllerService.getLedgerOverView())
     if (result) {
       return result;
     }

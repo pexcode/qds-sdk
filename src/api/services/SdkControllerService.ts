@@ -4,12 +4,14 @@
 /* eslint-disable */
 import type { appAttributes } from '../models/appAttributes';
 import type { branchesAttributes } from '../models/branchesAttributes';
+import type { BranchLedgerAttributes } from '../models/BranchLedgerAttributes';
 import type { CalculateCostAttributes } from '../models/CalculateCostAttributes';
+import type { SdkLedgerOverview } from '../models/SdkLedgerOverview';
 import type { ShippingServiceData } from '../models/ShippingServiceData';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class SdkExternalControllerService {
+export class SdkControllerService {
     /**
      * @returns any Ok
      * @throws ApiError
@@ -59,6 +61,35 @@ export class SdkExternalControllerService {
             url: '/api/app/v2/shipping/cost',
             body: requestBody,
             mediaType: 'application/json',
+        });
+    }
+    /**
+     * @param year
+     * @param month
+     * @returns any Ok
+     * @throws ApiError
+     */
+    public static getLedgerList(
+        year?: number,
+        month?: number,
+    ): CancelablePromise<Array<BranchLedgerAttributes>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/app/v2/ledger',
+            query: {
+                'year': year,
+                'month': month,
+            },
+        });
+    }
+    /**
+     * @returns any Ok
+     * @throws ApiError
+     */
+    public static getLedgerOverView(): CancelablePromise<SdkLedgerOverview> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/app/v2/ledger-overview',
         });
     }
 }

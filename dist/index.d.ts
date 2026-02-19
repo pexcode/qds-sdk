@@ -1,11 +1,13 @@
 import { appAttributes } from "./api/models/appAttributes";
 import { branchesAttributes } from "./api/models/branchesAttributes";
+import { BranchLedgerAttributes } from "./api/models/BranchLedgerAttributes";
 import { CalculateCostAttributes } from "./api/models/CalculateCostAttributes";
 import { CheckBlackListAttribute } from "./api/models/CheckBlackListAttribute";
 import { citiesAttributes } from "./api/models/citiesAttributes";
 import { HttpSuccess } from "./api/models/HttpSuccess";
 import { packagesAttributes } from "./api/models/packagesAttributes";
 import { regionsAttributes } from "./api/models/regionsAttributes";
+import { SdkLedgerOverview } from "./api/models/SdkLedgerOverview";
 import { SdkPackagesCreationAttributes } from "./api/models/SdkPackagesCreationAttributes";
 import { ShippingServiceData } from "./api/models/ShippingServiceData";
 export declare class QDSystem {
@@ -23,4 +25,6 @@ export declare class QDSystem {
     SendDataToCenter(id: string): Promise<HttpSuccess>;
     GetRegionsList(countryId: number): Promise<regionsAttributes[]>;
     GetCitiesListInByRegion(regionId: number): Promise<citiesAttributes[]>;
+    GetMyLedger(year?: number, month?: number): Promise<BranchLedgerAttributes[]>;
+    GetMyLedgerOverview(): Promise<SdkLedgerOverview>;
 }

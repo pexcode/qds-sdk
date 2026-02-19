@@ -6,6 +6,7 @@ import type { AppId } from './AppId';
 import type { BillingType } from './BillingType';
 import type { BranchId } from './BranchId';
 import type { CostId } from './CostId';
+import type { Currencies } from './Currencies';
 import type { EndpointId } from './EndpointId';
 import type { movementsAttributes } from './movementsAttributes';
 import type { PacketId } from './PacketId';
@@ -44,7 +45,7 @@ export type packagesAttributes = {
     paymentMethod?: string;
     paymentId?: string;
     paymentDate?: string;
-    currency: string;
+    currency: Currencies;
     showCostBox: boolean;
     km?: number;
     travelTimeInSeconds?: number;

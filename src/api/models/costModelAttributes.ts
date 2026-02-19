@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { BranchId } from './BranchId';
 import type { CostId } from './CostId';
+import type { Currencies } from './Currencies';
 import type { PacketType } from './PacketType';
 import type { TenantId } from './TenantId';
 export type costModelAttributes = {
@@ -20,7 +21,7 @@ export type costModelAttributes = {
     fuelSurcharge: number;
     cityBaseCosts: number;
     unit: string;
-    currency: string;
+    currency: Currencies;
     maxLong: number;
     maxWidth?: number;
     weight: number;
