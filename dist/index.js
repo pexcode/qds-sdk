@@ -12,7 +12,7 @@ class QDSystem {
     constructor(tokenKey) {
         OpenAPI_1.OpenAPI.TOKEN = tokenKey;
         OpenAPI_1.OpenAPI.BASE = baseUrl;
-        OpenAPI_1.OpenAPI.HEADERS = { 'x-version': SDK_api_ver };
+        OpenAPI_1.OpenAPI.HEADERS = { "x-version": SDK_api_ver };
     }
     async GetList(page = 1, pageSize = 10) {
         const { result, error } = await (0, api_handler_1.ApiCall)(() => SdkPackagesControllerService_1.SdkPackagesControllerService.getList(page, pageSize));
@@ -114,6 +114,17 @@ class QDSystem {
     }
     async GetMyLedgerOverview() {
         const { result, error } = await (0, api_handler_1.ApiCall)(() => SdkControllerService_1.SdkControllerService.getLedgerOverView());
+        if (result) {
+            return result;
+        }
+        throw error;
+    }
+    async SetWebhook(payload) {
+        const { result, error } = await (0, api_handler_1.ApiCall)(() => SdkControllerService_1.SdkControllerService.setWebhook({
+            host: payload.host,
+            webhookToken: payload.webhookToken,
+            path: payload.path,
+        }));
         if (result) {
             return result;
         }

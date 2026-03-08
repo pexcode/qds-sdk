@@ -187,20 +187,6 @@ export class QDSystem {
     throw error;
   }
 
-  async SetWebhook(payload:{
-    host: string,
-    webhookToken: string,
-    path: string,
-  }): Promise<HttpSuccess> {
-    const { result, error } = await ApiCall(() =>
-      SdkControllerService.setWebhook({ host:payload.host, webhookToken:payload, path }),
-    );
-    if (result) {
-      return result;
-    }
-    throw error;
-  }
-  
   async SetWebhook(payload: {
     host: string;
     webhookToken: string;

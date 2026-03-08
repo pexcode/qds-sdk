@@ -27,4 +27,9 @@ export declare class QDSystem {
     GetCitiesListInByRegion(regionId: number): Promise<citiesAttributes[]>;
     GetMyLedger(year?: number, month?: number): Promise<BranchLedgerAttributes[]>;
     GetMyLedgerOverview(): Promise<SdkLedgerOverview>;
+    SetWebhook(payload: {
+        host: string;
+        webhookToken: string;
+        path: string;
+    }): Promise<HttpSuccess>;
 }
