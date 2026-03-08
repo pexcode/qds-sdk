@@ -6,6 +6,7 @@ import type { appAttributes } from '../models/appAttributes';
 import type { branchesAttributes } from '../models/branchesAttributes';
 import type { BranchLedgerAttributes } from '../models/BranchLedgerAttributes';
 import type { CalculateCostAttributes } from '../models/CalculateCostAttributes';
+import type { HttpSuccess } from '../models/HttpSuccess';
 import type { SdkLedgerOverview } from '../models/SdkLedgerOverview';
 import type { ShippingServiceData } from '../models/ShippingServiceData';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -90,6 +91,25 @@ export class SdkControllerService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/app/v2/ledger-overview',
+        });
+    }
+    /**
+     * @param requestBody
+     * @returns any Ok
+     * @throws ApiError
+     */
+    public static setWebhook(
+        requestBody: {
+            host: string;
+            webhookToken: string;
+            path: string;
+        },
+    ): CancelablePromise<HttpSuccess> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/app/v2/set-webhook',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 }

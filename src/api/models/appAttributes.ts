@@ -20,6 +20,7 @@ export type appAttributes = {
     host?: string;
     token?: string;
     hook_url?: string;
+    hookToken?: string;
     hash?: string;
     appLevel: AppLevel;
     blockedAt?: string;
