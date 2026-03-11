@@ -30,11 +30,7 @@ export type SdkPackagesCreationAttributes = {
     recipientName: string;
     recipientPhone: string;
     note: string;
-    shippingCost: number;
     packetCost?: number;
-    showCostBox: boolean;
-    isPaid: boolean;
-    isPaidOnline: boolean;
     endpoint?: EndpointId;
     pickup: boolean;
     includeProducts: boolean;

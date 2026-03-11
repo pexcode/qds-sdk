@@ -58,7 +58,6 @@ export type packagesAttributes = {
     wa: boolean;
     kg: number;
     roadAt?: string;
-    isPaid: boolean;
     isPaidOnline: boolean;
     endpoint?: EndpointId;
     pickup: boolean;
