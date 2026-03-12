@@ -10,18 +10,28 @@
 
 ## Table of contents
 
-- [Features](#features)
-- [Installation](#installation)
-- [Quick start](#quick-start)
-- [Authentication](#authentication)
-- [Common workflow](#common-workflow)
-- [API reference](#api-reference)
-- [Usage examples](#usage-examples)
-- [Enums reference](#enums-reference)
-- [Error handling](#error-handling)
-- [TypeScript](#typescript)
-- [Development](#development)
-- [License](#license)
+- [@pexcode/qds-sdk](#pexcodeqds-sdk)
+  - [Table of contents](#table-of-contents)
+  - [Features](#features)
+  - [Installation](#installation)
+  - [Quick start](#quick-start)
+  - [Authentication](#authentication)
+  - [Common workflow](#common-workflow)
+  - [API reference](#api-reference)
+  - [Usage examples](#usage-examples)
+    - [App info and branches](#app-info-and-branches)
+    - [List packages and get details](#list-packages-and-get-details)
+    - [Calculate shipping cost](#calculate-shipping-cost)
+    - [Create a package](#create-a-package)
+    - [Regions and cities (e.g. for address forms)](#regions-and-cities-eg-for-address-forms)
+    - [Check blacklist](#check-blacklist)
+    - [Ledger overview and entries](#ledger-overview-and-entries)
+    - [Cancel or report a package](#cancel-or-report-a-package)
+  - [Enums reference](#enums-reference)
+  - [Error handling](#error-handling)
+  - [TypeScript](#typescript)
+  - [Development](#development)
+  - [License](#license)
 
 ---
 
@@ -87,7 +97,7 @@ A typical integration flow:
 1. **App & branches** — Call `MyInfo()` and `getTenantBranches()` to get your `branchId` and `costId`.
 2. **Geography** — Use `GetRegionsList(countryId)` and `GetCitiesListInByRegion(regionId)` for address dropdowns.
 3. **Cost** — Call `CalculateCost({ branchId, costId, recipientCityId, ... })` to get `shippingCost` and display the price.
-4. **Create** — Call `CreatePackage({ ...payload, shippingCost })` with the same IDs and recipient data.
+4. **Create** — Call `CreatePackage({ ...payload })` with the same IDs and recipient data.
 5. **Track** — Use `GetList()` or `GetPackageDetails(id)`, and optionally `GetMyLedger()` or `GetMyLedgerOverview()`.
 
 ---
@@ -140,7 +150,7 @@ console.log(details.recipientName, details.recipientAddress, details.status);
 
 ### Calculate shipping cost
 
-Call this **before** creating a package to get the `shippingCost` to pass into `CreatePackage`. Use `costId` and `branchId` from your tenant (for example, from `getTenantBranches()` or your config).
+Use `costId` and `branchId` from your tenant (for example, from `getTenantBranches()` or your config).
 
 ```typescript
 import { QDSystem } from '@pexcode/qds-sdk';
@@ -202,7 +212,6 @@ const payload: SdkPackagesCreationAttributes = {
   proofOfDeliveryType: ProofOfDeliveryType.NONE,
   branchId: 'branch-uuid',
   costId: 'cost-uuid',
-  shippingCost: 10,
   showCostBox: true,
   isPaid: false,
   isPaidOnline: false,
