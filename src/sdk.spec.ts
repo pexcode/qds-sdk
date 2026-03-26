@@ -1,11 +1,5 @@
 import { QDSystem } from ".";
-import { BillingType } from "./api/models/BillingType";
-import { CalculateCostAttributes } from "./api/models/CalculateCostAttributes";
 import { CheckBlackListAttribute } from "./api/models/CheckBlackListAttribute";
-import { PacketType } from "./api/models/PacketType";
-import { ProofOfDeliveryType } from "./api/models/ProofOfDeliveryType";
-import { SdkPackagesCreationAttributes } from "./api/models/SdkPackagesCreationAttributes";
-import { ShippingOption } from "./api/models/ShippingOption";
 
 const tokenKey = "token";
 
