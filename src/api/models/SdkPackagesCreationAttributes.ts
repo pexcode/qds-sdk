@@ -12,7 +12,6 @@ import type { ProofOfDeliveryType } from './ProofOfDeliveryType';
 import type { ShippingOption } from './ShippingOption';
 import type { TenantId } from './TenantId';
 export type SdkPackagesCreationAttributes = {
-    senderPhone: string;
     shippingOption: ShippingOption;
     billingType: BillingType;
     proofOfDeliveryType: ProofOfDeliveryType;
