@@ -4,19 +4,17 @@
 /* eslint-disable */
 import type { AppId } from './AppId';
 import type { AppLevel } from './AppLevel';
+import type { ClientAttributes } from './ClientAttributes';
 import type { LimitedAppAttributes } from './LimitedAppAttributes';
 import type { TenantId } from './TenantId';
 export type appAttributes = {
     id: AppId;
     tenantId: TenantId;
-    name: string;
-    address?: string;
+    clientId: string;
     countryId: number;
-    email?: string;
     isActive: boolean;
     currentRequestCount: number;
     lastRequestAt: string;
-    avatar?: string;
     host?: string;
     token?: string;
     hook_url?: string;
@@ -28,5 +26,6 @@ export type appAttributes = {
     updatedAt?: string;
     expireDate: string;
     limitedApp?: LimitedAppAttributes;
+    clientInfo?: ClientAttributes;
 };
 

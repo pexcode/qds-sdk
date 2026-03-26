@@ -5,6 +5,7 @@
 import type { AppId } from './AppId';
 import type { BillingType } from './BillingType';
 import type { BranchId } from './BranchId';
+import type { ClientAttributes } from './ClientAttributes';
 import type { CostId } from './CostId';
 import type { Currencies } from './Currencies';
 import type { EndpointId } from './EndpointId';
@@ -24,23 +25,15 @@ export type packagesAttributes = {
     tenantId?: TenantId;
     futureTenantId?: TenantId;
     appId?: AppId;
-    recipientCityId?: number;
+    receiverCityId?: number;
     code?: number;
     branchId?: BranchId;
-    recipientAddress?: string;
-    recipientLng?: number;
-    recipientLat?: number;
-    senderName: string;
-    senderAddress?: string;
-    senderEmail?: string;
-    senderPhone: string;
-    recipientEmail?: string;
+    receiverId: string;
+    senderId: string;
     type: PacketType;
-    recipientName: string;
-    recipientPhone: string;
     note: string;
     shippingCost: number;
-    packetCost?: number;
+    packageCost?: number;
     costId?: CostId;
     paymentMethod?: string;
     paymentId?: string;
@@ -73,5 +66,7 @@ export type packagesAttributes = {
     proposedDeliveryDate?: string | null;
     tripId?: string | null;
     movementPackageGroup?: Array<movementsAttributes>;
+    receiverInfo?: ClientAttributes;
+    senderInfo?: ClientAttributes;
 };
 

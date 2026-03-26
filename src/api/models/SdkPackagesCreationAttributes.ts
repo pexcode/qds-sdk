@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { BillingType } from './BillingType';
 import type { BranchId } from './BranchId';
+import type { ClientCreationAttributes } from './ClientCreationAttributes';
 import type { CostId } from './CostId';
 import type { EndpointId } from './EndpointId';
 import type { PacketType } from './PacketType';
@@ -18,22 +19,14 @@ export type SdkPackagesCreationAttributes = {
     branchId: BranchId;
     costId: CostId;
     futureTenantId?: TenantId;
-    recipientCityId: number;
-    recipientAddress: string;
-    recipientLng: number;
-    recipientLat: number;
-    senderName: string;
-    senderAddress: string;
-    senderEmail: string;
-    recipientEmail: string;
+    receiverCityId: number;
     type: PacketType;
-    recipientName: string;
-    recipientPhone: string;
     note: string;
-    packetCost?: number;
+    packageCost?: number;
     endpoint?: EndpointId;
     pickup: boolean;
     includeProducts: boolean;
     isTesting: boolean;
+    receiverInfo: ClientCreationAttributes;
 };
 

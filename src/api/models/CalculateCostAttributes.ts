@@ -7,10 +7,10 @@ import type { CostId } from './CostId';
 export type CalculateCostAttributes = {
     costId: CostId;
     branchId: BranchId;
-    recipientLng?: number;
-    recipientLat?: number;
-    recipientAddress?: string;
-    recipientCityId: number;
+    receiverLng?: number;
+    receiverLat?: number;
+    receiverAddress?: string;
+    receiverCityId: number;
     isExpress: boolean;
     isPickup: boolean;
 };

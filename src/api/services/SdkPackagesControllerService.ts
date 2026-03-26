@@ -2,8 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { blacklistAttributes } from '../models/blacklistAttributes';
 import type { CheckBlackListAttribute } from '../models/CheckBlackListAttribute';
+import type { ClientAttributes } from '../models/ClientAttributes';
 import type { HttpSuccess } from '../models/HttpSuccess';
 import type { packagesAttributes } from '../models/packagesAttributes';
 import type { PacketId } from '../models/PacketId';
@@ -123,7 +123,7 @@ export class SdkPackagesControllerService {
      */
     public static checkBlackList(
         requestBody: CheckBlackListAttribute,
-    ): CancelablePromise<blacklistAttributes> {
+    ): CancelablePromise<ClientAttributes> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/app/v2/packages/check-black-list',

@@ -4,7 +4,8 @@
 /* eslint-disable */
 export type CheckBlackListAttribute = {
     phone?: string;
-    fullName?: string;
+    firstName?: string;
+    lastName?: string;
     address?: string;
     email?: string;
 };
