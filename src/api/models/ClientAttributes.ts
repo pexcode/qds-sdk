@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ClientTypeEnum } from './ClientTypeEnum';
 import type { TenantId } from './TenantId';
 import type { UserId } from './UserId';
 export type ClientAttributes = {
@@ -14,12 +15,14 @@ export type ClientAttributes = {
     firstName: string;
     lastName: string;
     postCode?: string;
+    houseNumber?: string;
     address: string;
     phone: string;
     email?: string;
     isVerified: boolean;
     lng?: number;
     lat?: number;
+    type: ClientTypeEnum;
     comment?: string;
     hasBan?: boolean;
     createdAt?: string;

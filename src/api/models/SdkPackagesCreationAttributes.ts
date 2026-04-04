@@ -18,7 +18,6 @@ export type SdkPackagesCreationAttributes = {
     branchId: BranchId;
     costId: CostId;
     futureTenantId?: TenantId;
-    receiverCityId: number;
     type: PacketType;
     note: string;
     packageCost?: number;

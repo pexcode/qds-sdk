@@ -11,5 +11,7 @@ export type ClientCreationAttributes = {
     email?: string;
     lng?: number;
     lat?: number;
+    cityId: number;
+    houseNumber?: string;
 };
 
