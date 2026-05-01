@@ -18,9 +18,8 @@
     "build": "tsc",
     "prepare": "npm run build",
     "push": "npm publish --access public",
-    "swagger-dev": "npx openapi-typescript-codegen --input http://localhost:2500/swagger.json --output src/api --client axios",
+    "swagger-dev": "npx openapi-typescript-codegen --input http://localhost:2500/swagger-sdk.json --output src/api --client axios",
     "build-tsup": "tsup src/index.ts --format cjs,esm --dts --clean --minify",
-    "cleanup-api": "node scripts/cleanup-api.ts",
     "test": "jest"
   },
   "devDependencies": {

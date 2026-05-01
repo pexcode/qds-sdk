@@ -5,7 +5,6 @@
 export enum PlatformEnum {
     QDS = 'QDS',
     ANDROID = 'android',
-    TRUST = 'trust',
     SDK = 'sdk',
     IS_APP = 'isApp',
     ENDPOINT = 'endpoint',
