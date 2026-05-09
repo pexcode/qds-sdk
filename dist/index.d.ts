@@ -11,7 +11,7 @@ import { SdkLedgerOverview } from "./api/models/SdkLedgerOverview";
 import { SdkPackagesCreationAttributes } from "./api/models/SdkPackagesCreationAttributes";
 import { ShippingServiceData } from "./api/models/ShippingServiceData";
 export declare class QDSystem {
-    constructor(tokenKey: string);
+    constructor(baseUrl: string, tokenKey: string);
     GetList(page?: number, pageSize?: number): Promise<packagesAttributes[]>;
     getCompanyListOfCity(cityId: number): Promise<branchesAttributes[]>;
     MyInfo(): Promise<appAttributes>;

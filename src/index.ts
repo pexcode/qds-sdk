@@ -16,10 +16,9 @@ import { RegionsControllerService } from "./api/services/RegionsControllerServic
 import { SdkControllerService } from "./api/services/SdkControllerService";
 import { SdkPackagesControllerService } from "./api/services/SdkPackagesControllerService";
 const SDK_api_ver = "v3";
-const baseUrl = "https://api.pexcode.com/qs";
 
 export class QDSystem {
-  constructor(tokenKey: string) {
+  constructor(baseUrl: string, tokenKey: string) {
     OpenAPI.TOKEN = tokenKey;
     OpenAPI.BASE = baseUrl;
     OpenAPI.HEADERS = { "x-version": SDK_api_ver };

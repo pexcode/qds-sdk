@@ -66,7 +66,7 @@ Requires **Node.js** (LTS recommended). The SDK depends on **axios**, which is i
 ```typescript
 import { QDSystem } from '@pexcode/qds-sdk';
 
-const qds = new QDSystem('YOUR_API_TOKEN');
+const qds = new QDSystem('BASE_URl','YOUR_API_TOKEN');
 
 // Fetch your app (tenant) info
 const app = await qds.MyInfo();
@@ -156,7 +156,7 @@ Use `costId` and `branchId` from your tenant (for example, from `getTenantBranch
 import { QDSystem } from '@pexcode/qds-sdk';
 import type { CalculateCostAttributes } from '@pexcode/qds-sdk';
 
-const qds = new QDSystem('YOUR_TOKEN');
+const qds = new QDSystem('BASE_URL','YOUR_TOKEN');
 
 const params: CalculateCostAttributes = {
   costId: 'your-cost-uuid',
@@ -188,7 +188,7 @@ import {
 } from '@pexcode/qds-sdk';
 import type { SdkPackagesCreationAttributes } from '@pexcode/qds-sdk';
 
-const qds = new QDSystem('YOUR_TOKEN');
+const qds = new QDSystem('BASE_URL','YOUR_TOKEN');
 
 const payload: SdkPackagesCreationAttributes = {
   // Sender

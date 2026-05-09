@@ -7,9 +7,8 @@ const RegionsControllerService_1 = require("./api/services/RegionsControllerServ
 const SdkControllerService_1 = require("./api/services/SdkControllerService");
 const SdkPackagesControllerService_1 = require("./api/services/SdkPackagesControllerService");
 const SDK_api_ver = "v3";
-const baseUrl = "https://api.pexcode.com/qs";
 class QDSystem {
-    constructor(tokenKey) {
+    constructor(baseUrl, tokenKey) {
         OpenAPI_1.OpenAPI.TOKEN = tokenKey;
         OpenAPI_1.OpenAPI.BASE = baseUrl;
         OpenAPI_1.OpenAPI.HEADERS = { "x-version": SDK_api_ver };
