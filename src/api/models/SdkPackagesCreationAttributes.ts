@@ -7,7 +7,7 @@ import type { BranchId } from './BranchId';
 import type { ClientCreationAttributes } from './ClientCreationAttributes';
 import type { CostId } from './CostId';
 import type { EndpointId } from './EndpointId';
-import type { PacketType } from './PacketType';
+import type { PackageType } from './PackageType';
 import type { ProofOfDeliveryType } from './ProofOfDeliveryType';
 import type { ShippingOption } from './ShippingOption';
 import type { TenantId } from './TenantId';
@@ -18,7 +18,7 @@ export type SdkPackagesCreationAttributes = {
     branchId: BranchId;
     costId: CostId;
     futureTenantId?: TenantId;
-    type: PacketType;
+    type: PackageType;
     note: string;
     packageCost?: number;
     endpoint?: EndpointId;

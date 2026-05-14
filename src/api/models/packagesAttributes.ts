@@ -10,8 +10,8 @@ import type { CostId } from './CostId';
 import type { Currencies } from './Currencies';
 import type { EndpointId } from './EndpointId';
 import type { movementsAttributes } from './movementsAttributes';
-import type { PacketId } from './PacketId';
-import type { PacketType } from './PacketType';
+import type { PackageId } from './PackageId';
+import type { PackageType } from './PackageType';
 import type { PlatformEnum } from './PlatformEnum';
 import type { ProofOfDeliveryType } from './ProofOfDeliveryType';
 import type { ShippingOption } from './ShippingOption';
@@ -19,7 +19,7 @@ import type { TenantId } from './TenantId';
 import type { UserId } from './UserId';
 export type packagesAttributes = {
     url?: string;
-    id: PacketId;
+    id: PackageId;
     adminId?: UserId;
     deliveryId?: UserId;
     tenantId?: TenantId;
@@ -30,7 +30,7 @@ export type packagesAttributes = {
     branchId?: BranchId;
     receiverId: string;
     senderId: string;
-    type: PacketType;
+    type: PackageType;
     note: string;
     shippingCost: number;
     packageCost?: number;

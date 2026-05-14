@@ -2,8 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-/**
- * Stringified UUIDv4.
- * See [RFC 4112](https://tools.ietf.org/html/rfc4122)
- */
-export type PacketId = string;
+export enum PackageType {
+    PACKAGE = 'Package',
+    DOCUMENT = 'Document',
+}

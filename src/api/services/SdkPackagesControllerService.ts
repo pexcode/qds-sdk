@@ -5,8 +5,8 @@
 import type { CheckBlackListAttribute } from '../models/CheckBlackListAttribute';
 import type { ClientAttributes } from '../models/ClientAttributes';
 import type { HttpSuccess } from '../models/HttpSuccess';
+import type { PackageId } from '../models/PackageId';
 import type { packagesAttributes } from '../models/packagesAttributes';
-import type { PacketId } from '../models/PacketId';
 import type { SdkPackagesCreationAttributes } from '../models/SdkPackagesCreationAttributes';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -18,7 +18,7 @@ export class SdkPackagesControllerService {
      * @throws ApiError
      */
     public static getPackageDetails(
-        id: PacketId,
+        id: PackageId,
     ): CancelablePromise<packagesAttributes> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -68,7 +68,7 @@ export class SdkPackagesControllerService {
      * @throws ApiError
      */
     public static sendDataToCEnter(
-        id: PacketId,
+        id: PackageId,
     ): CancelablePromise<HttpSuccess> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -84,7 +84,7 @@ export class SdkPackagesControllerService {
      * @throws ApiError
      */
     public static canceled(
-        id: PacketId,
+        id: PackageId,
     ): CancelablePromise<HttpSuccess> {
         return __request(OpenAPI, {
             method: 'PATCH',
@@ -100,8 +100,8 @@ export class SdkPackagesControllerService {
      * @returns any Ok
      * @throws ApiError
      */
-    public static reportPacket(
-        id: PacketId,
+    public static reportPackage(
+        id: PackageId,
         requestBody: {
             reportId: number;
         },

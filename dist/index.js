@@ -63,7 +63,7 @@ class QDSystem {
         throw error;
     }
     async ReportOne(id, body) {
-        const { result, error } = await (0, api_handler_1.ApiCall)(() => SdkPackagesControllerService_1.SdkPackagesControllerService.reportPacket(id, body));
+        const { result, error } = await (0, api_handler_1.ApiCall)(() => SdkPackagesControllerService_1.SdkPackagesControllerService.reportPackage(id, body));
         if (result) {
             return result;
         }

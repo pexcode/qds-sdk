@@ -5,13 +5,13 @@
 import type { BranchId } from './BranchId';
 import type { CostId } from './CostId';
 import type { Currencies } from './Currencies';
-import type { PacketType } from './PacketType';
+import type { PackageType } from './PackageType';
 import type { TenantId } from './TenantId';
 export type costModelAttributes = {
     id: CostId;
     tenantId: TenantId;
     branchId: BranchId;
-    type: PacketType;
+    type: PackageType;
     typeId: number;
     modelV1: boolean;
     costPerKilometer: number;

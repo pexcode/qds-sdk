@@ -5,6 +5,7 @@
 export enum Currencies {
     USD = 'USD',
     EURO = 'EURO',
-    GBP = 'GBP',
+    EGP = 'EGP',
     DZD = 'DZD',
+    SYP = 'SYP',
 }

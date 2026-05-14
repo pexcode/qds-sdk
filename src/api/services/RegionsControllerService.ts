@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { citiesAttributes } from '../models/citiesAttributes';
+import type { HttpSuccess } from '../models/HttpSuccess';
 import type { regionsAttributes } from '../models/regionsAttributes';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -38,6 +39,27 @@ export class RegionsControllerService {
             path: {
                 'countryId': countryId,
             },
+        });
+    }
+    /**
+     * @param requestBody
+     * @returns any Ok
+     * @throws ApiError
+     */
+    public static createNewCity(
+        requestBody: {
+            longitude?: string;
+            latitude?: string;
+            en_name: string;
+            ar_name: string;
+            regionId: number;
+        },
+    ): CancelablePromise<HttpSuccess> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/regions/create-city',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 }

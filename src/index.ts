@@ -101,7 +101,7 @@ export class QDSystem {
 
   async ReportOne(id: string, body: any): Promise<HttpSuccess> {
     const { result, error } = await ApiCall(() =>
-      SdkPackagesControllerService.reportPacket(id, body),
+      SdkPackagesControllerService.reportPackage(id, body),
     );
     if (result) {
       return result;
